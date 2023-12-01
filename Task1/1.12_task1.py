@@ -2,9 +2,10 @@ import sys
 
 if __name__ == "__main__":
     out = 0
-    file = open('task1.input',mode='r')
+    file = open('../task1.input', mode='r')
     lines = file.read()
     lines = lines.splitlines()
+
     for line in lines:
 
         tmp = ''
