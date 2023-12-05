@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+
+from tqdm import tqdm
 @dataclass
 class map:
     change: int
@@ -10,6 +12,17 @@ class map:
     max: int
 
 
+def splitDataBackwards(lines):
+    lines = lines.splitlines()
+    lines = lines[1:]
+    out = []
+    for line in lines:
+        line = line.split()
+        line = [int(i) for i in line]
+        x = map(line[1] - line[0],line[0],line[1],line[2],line[0],line[0]+ line[2])
+        
+        out.append(x)
+    return out
 def splitData(lines):
     lines = lines.splitlines()
     lines = lines[1:]
@@ -37,11 +50,51 @@ if __name__ == "__main__":
     seeds = seeds[1:]
     seeds = [int(i) for i in seeds]
     trueSeeds = []
-    for i in range(seeds[0],seeds[0]+seeds[1]):
-        trueSeeds.append(i)
-    for i in range(seeds[2],seeds[2]+seeds[3]):
-        trueSeeds.append(i)
-    seeds = trueSeeds
+    out = 0
+    '''
+    for i in range(int(len(seeds))):
+        if i %2!=0:
+            out += seeds[i]
+            for j in range(seeds[i],seeds[i]+seeds[i+1]):
+                trueSeeds.append(j)
+             #   i = 0
+                #if j not in trueSeeds:
+                    #trueSeeds.append(j)
+'''
+
+  #  seeds = trueSeeds
+
+    
+    seedToSoilx = splitDataBackwards(lines[1])
+    soilToFertx = splitDataBackwards(lines[2])
+    fertToWaterx = splitDataBackwards(lines[3])
+    waterToLightx = splitDataBackwards(lines[4])
+    lightToTempx = splitDataBackwards(lines[5])
+    tempToHumx = splitDataBackwards(lines[6])
+    humToLocx = splitDataBackwards(lines[7])
+
+    for i in range(400000000):
+
+        tmp = findOut(i, humToLocx)
+        tmp = findOut(tmp, tempToHumx)
+        tmp = findOut(tmp, lightToTempx)
+        tmp = findOut(tmp, waterToLightx)
+        tmp = findOut(tmp, fertToWaterx)
+        tmp = findOut(tmp, soilToFertx)
+
+        tmp = findOut(tmp,seedToSoilx)
+
+
+
+        for j in range(len(seeds)):
+            if j % 2 == 0:
+                if tmp >= seeds[j] and tmp <= seeds[j] + seeds[j+1]:
+                    print(i)
+                    exit()
+
+
+
+    exit()
     seedToSoil = splitData(lines[1])
     soilToFert = splitData(lines[2])
     fertToWater = splitData(lines[3])
