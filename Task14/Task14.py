@@ -45,7 +45,7 @@ def sortRank(hands):
 
 
 if __name__ == "__main__":
-    file = open('Task13.input', mode='r')
+    file = open('Task14.input', mode='r')
     lines = file.read().splitlines()
 
     values = []
@@ -60,13 +60,19 @@ if __name__ == "__main__":
         rank = ''
         char = ''
         mix = []
-        sortedCards = sorted(cards)
+        js = cards.count('J')
+        sortedCards = sorted(cards.replace("J",""))
+
         for card in sortedCards:
             if card == char:
                 continue
             mix.append(str(sortedCards.count(card)))
             char = card
-
+        mix.sort(reverse=1)
+        if len(mix) == 0:
+            mix = ['0']
+        lol = int(mix[0])+js
+        mix[0] = str(lol)
         if (len(mix) == 5):
             hand.hand = '1k'
             hands[6].append(hand)
