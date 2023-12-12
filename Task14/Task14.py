@@ -32,10 +32,10 @@ def sortRank(hands):
         inserted = False
         for j in range(len(sorted)):
             if isBigger(hands[i],sorted[j]):
-                print(hands[i].cards + ' > ' + sorted[j].cards)
+               # print(hands[i].cards + ' > ' + sorted[j].cards)
                 continue
             else:
-                print(hands[i].cards + ' < ' + sorted[j].cards)
+                #print(hands[i].cards + ' < ' + sorted[j].cards)
                 sorted.insert(j,hands[i])
                 inserted = True
                 break
@@ -100,11 +100,12 @@ if __name__ == "__main__":
     for i in hands:
 
         sorted =  sortRank(i)
-        print(sorted)
+      #  print(sorted)
         for s in sorted:
             out += s.value * counter
+            print(s.cards,': ' ,s.value , '*' , counter )
             counter +=1
-    print(out)
+   # print(out)
 
 
 
